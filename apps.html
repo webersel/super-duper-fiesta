@@ -5,17 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting...</title>
     <script>
-        // Function to handle the redirection and iframe insertion
-        function redirectToBlankWithIframe() {
-            if (window.location.href !== "about:blank") {
-                window.location.href = "about:blank";
+        // Function to open about:blank in a new tab and insert the iframe
+        function openInNewTab() {
+            // Open a new tab with about:blank
+            let newWindow = window.open("about:blank", "_blank");
+
+            // Ensure the new window was opened successfully
+            if (newWindow) {
+                // Add an event listener to the new window to insert the iframe once it's loaded
+                newWindow.onload = function() {
+                    newWindow.document.body.innerHTML = '<iframe src="https://gointerstellar.app/as" style="width:100%; height:100%; border:none;"></iframe>';
+                };
             } else {
-                document.body.innerHTML = '<iframe src="https://gointerstellar.app/as" style="width:100%; height:100%; border:none;"></iframe>';
+                alert("Please allow pop-ups for this website to open the new tab.");
             }
         }
 
         // Call the function on window load
-        window.onload = redirectToBlankWithIframe;
+        window.onload = openInNewTab;
     </script>
 </head>
 <body>
